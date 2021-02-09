@@ -1,0 +1,6 @@
+oauth2client==4.1.3
+tensorflow==2.4.1
+requests==2.25.1
+streamlit==0.75.0
+google_api_python_client==1.12.8
+protobuf==3.14.0
