@@ -62,11 +62,11 @@ This is Food Vision 🍔👁 the app we're making.
 7. Notice a "Predict" button appears when you upload an image to the app, click it and see what happens.
 
 8. The app breaks because it tries to contact Google Cloud Platform (GCP) looking for a machine learning model and it either:
- a. won't be able to find the model (wrong API call or the model doesn't exist)
- b. won't be able to use the existing model because the credentials are wrong (seen below)
+ * won't be able to find the model (wrong API call or the model doesn't exist)
+ * won't be able to use the existing model because the credentials are wrong (seen below)
 ![credential error](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/streamlit-app-first-error-youll-run-into.png)
  
-This is a good thing! It means our app is trying to contact GCP (using functions in `food-vision/app.py` and `food-vision/utils.py`. 
+This is a good thing! It means our app is trying to contact GCP (using functions in `food-vision/app.py` and `food-vision/utils.py`). 
 
 Now let's learn how to get a model hosted on GCP.
 
@@ -95,9 +95,11 @@ Now let's learn how to get a model hosted on GCP.
   * the region of where your hosted model lives (e.g. `us-central1`)
  * Test to see if it works...
   
- > Okay, I've fixed the permissions error, how do I deploy my model/app?
+### 3. Deploying the whole app to GCP
+
+> Okay, I've fixed the permissions error, how do I deploy my model/app?
  
- I'm glad you asked...
+I'm glad you asked...
  
  * run `make gcloud-deploy`... wait 5-10 mins and your app will be on App Engine (as long as you've activated the App Engine API)
  
@@ -105,9 +107,13 @@ Now let's learn how to get a model hosted on GCP.
  
  * TODO: add the steps here of make/GCLOUD deploy
  
+## Breaking down `food-vision`
+
 > What do all the files in `food-vision` do?
 
 * TODO: list what each file does...
+
+## Learn more
 
 > Where can I learn all of this?
 
