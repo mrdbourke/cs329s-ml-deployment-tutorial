@@ -21,17 +21,39 @@ If you go through the steps below without fail, you should end up with a Streaml
 
 * clone the repo
 * cd into food-vision
-* make virtualenv 
-* activate env
-* pip install -r requirements.txt 
+* make virtualenv `virtualenv <ENV-NAME>`, e.g. `virtualenv env` , if you don't have `virtualenv` -> `pip install virtualenv` 
+* activate env: `source <ENV-NAME>/bin/activate`, e.g `source env/bin/activate`
+* pip install -r requirements.txt: `pip install -r requirements.txt`
+
 * streamlit run app.py
+ * TODO: what you will see... 
+* try to upload an image, e.g. ice_cream.jpeg (notice it loads)
+* but it will break when it tries to ping the model hosted on GCP (it'll look for GCP credentials, instead of using yours...)
+ * TODO: add image of error...
+ * this is a good thing! now let's learn how to get a model hosted on GCP
+ 
 * navigate to local host where Streamlit app lives
   * Note: Streamlit app will break unless, you've got the right GCP setup...
+ 
+> How do I fix this error?
+
+* Train a model - use the model training notebook (TODO: upload this to GitHub) 
+* Host it on Google Storage - 
+* Connect model in Google Storage to AI platform - https://cloud.google.com/ai-platform/prediction/docs/deploying-models 
+* Create a service account to access AI platform (GCP loves permissions, it's for your security)
+ * Download the service account key (**Warning:** keep this private! otherwise people can access your GCP account, add these to your .gitignore (.gitignore tells git what files it should ignore when saving/uploading to GitHub))
+* Update the variables in `app.py` and `utils.py` with your GCP information
+ * You'll need:
+  * GCP key
+  * the name of your hosted model (e.g. `efficientnetb0_10_food_classes`)
+  * the region of where your hosted model lives (e.g. `us-central1`)
 
 > What do all the files in `food-vision` do?
 
 * TODO: list what each file does...
 
 > Where can I learn all of this?
+
+* TODO: Google Cloud free materials etc/lots and lots and lots of blog posts
 
 
