@@ -143,7 +143,6 @@ dmypy.json
 .prof
 
 # misc
-*.jpeg
 *.json
 .DS_Store
 *.key
