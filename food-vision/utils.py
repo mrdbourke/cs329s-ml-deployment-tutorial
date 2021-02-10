@@ -17,7 +17,7 @@ base_classes = ['chicken_curry',
 classes_and_models = {
     "model_1": {
         "classes": base_classes,
-        "model_name": "efficientnet_food_vision_model_10_classes"
+        "model_name": "efficientnet_model_1_10_classes" # change to be your model name
     },
     "model_2": {
         "classes": sorted(base_classes + ["donut"]),
