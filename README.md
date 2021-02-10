@@ -1,6 +1,8 @@
 # CS329s Machine Learning Model Deployment Tutorial
 
-TODO: warnings
+Warning: following the steps of what's in here may cost you money (Google Cloud is a paid service), be sure to follow accordingly.
+
+Thank you to: [Mark Douthwaite](https://mark.douthwaite.io/), Lj Miranda Huyen  https://mark.douthwaite.io/
 TODO: thank you's (people who have helped create this)
 
 ## What is in here?
@@ -74,26 +76,90 @@ Now let's learn how to get a model hosted on GCP.
  
 > How do I fix this error? (Streamlit can't access your model) 
 
-* Train a model - use the [model training notebook](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb)
-* Host it on Google Storage
- * Requires creating a bucket - https://cloud.google.com/storage/docs/creating-buckets
- * Then copy your SavedModel to the bucket you created - https://cloud.google.com/storage/docs/uploading-objects#gsutil
-* Connect model in Google Storage to AI platform - https://cloud.google.com/ai-platform/prediction/docs/deploying-models 
- * You can use the Google Cloud Console or use `gcloud` CLI - https://cloud.google.com/sdk/gcloud/reference/ai-platform/models/create 
- * create a model
- * create a version (link your model to version saved in GS)
+To fix it, we're going to need a couple of things:
+* A trained machine learning model (suited to our problem, we'll be uploading this to Google Storage)
+* A Google Storage bucket (to store our trained model)
+* A hosted model on Google AI Platform (we'll connect the model in our Google Storage bucket to here)
+* A service key to access our hosted model on Google AI Platform
+
+Let's see how we'll can get the above.
+
+1. To train a machine learning model and save it in the [`SavedModel`](https://www.tensorflow.org/guide/saved_model) format (this TensorFlow specific, do what you need for PyTorch), we can follow the steps in [`model_training.ipynb`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb).
+
+2. Once we've got a `SavedModel`, we'll upload it Google Storage but before we do that, we'll need to [create a Google Storage Bucket](https://cloud.google.com/storage/docs/creating-buckets).
+
+TODO: Image
+
+3. With a bucket created, we can [copy our model to the bucket](https://cloud.google.com/storage/docs/uploading-objects#gsutil).
+```
+## Uploading a model to Google Storage from within Colab ##
+
+# Authorize Colab and initalize gcloud (enter the appropriate inputs when asked)
+from google.colab import auth
+auth.authenticate_user()
+!curl https://sdk.cloud.google.com | bash
+!gcloud init
+
+# Upload SavedModel to Google Storage Bucket
+!gsutil cp -r <YOUR_MODEL_PATH> <YOUR_GOOGLE_STORAGE_BUCKET>
+```
+
+4. [Connect model in bucket to AI Platform](https://cloud.google.com/ai-platform/prediction/docs/deploying-models) (this'll make our model accessible via an API call)
+ * You can also [use `gcloud` to create a model in the AI Platform](https://cloud.google.com/sdk/gcloud/reference/ai-platform/models/create)
  
-* Create a service account to access AI platform (GCP loves permissions, it's for your security)
- * Download the service account key (**Warning:** keep this private! otherwise people can access your GCP account, add these to your .gitignore (.gitignore tells git what files it should ignore when saving/uploading to GitHub))
- * Create a service account which is allowed to access AI platform - https://cloud.google.com/iam/docs/creating-managing-service-accounts
- * Give the service account permissions to use ML Engine Developer (TODO: add image)
- * Get a key for that service account - https://cloud.google.com/iam/docs/creating-managing-service-account-keys
-* Update the variables in `app.py` and `utils.py` with your GCP information
- * You'll need:
-  * GCP key (JSON)
-  * the name of your hosted model (e.g. `efficientnetb0_10_food_classes`)
-  * the region of where your hosted model lives (e.g. `us-central1`)
- * Test to see if it works...
+ TODO: image(s)
+ 
+5. Create a [service account to access AI Platform](https://cloud.google.com/iam/docs/creating-managing-service-accounts) (GCP loves permissions, it's for the security of your app)
+ * You'll want to make a service account with permissions to use the "ML Engine Developer" role
+
+![ml developer role permission](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/gcp-ml-engine-permissions.png)
+
+6. Once you've got an active service account, [create and download its key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) (this will come in the form of a .JSON file)
+ * 🔑 **Note:** Service keys grant access to your GCP account, keep this file private (e.g add `*.json` to your `.gitignore`)
+
+7. Update the following variables:
+ * In `app.py`, change the existing GCP key path to your key path:
+```
+# Google Cloud Services look for these when your app runs
+
+# Old
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "daniels-dl-playground-4edbcb2e6e37.json"
+
+# New 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "<PATH_TO_YOUR_KEY>"
+```
+ * In `app.py`, change the GCP project and region to your GCP project and region
+```
+# Old
+PROJECT = "daniels-dl-playground"
+REGION = "us-central1" 
+
+# New
+PROJECT = "<YOUR_GCP_PROJECT_NAME>"
+REGION = "<YOUR_GCP_REGION>"
+```
+ * In `utils.py`, change the `"model_name"` key of `"model_1"` to your model name:
+ ```
+ # Old
+ classes_and_models = {
+    "model_1": {
+        "classes": base_classes,
+        "model_name": "efficientnet_model_1_10_classes" 
+    }
+ }
+ 
+ # New
+  classes_and_models = {
+    "model_1": {
+        "classes": base_classes,
+        "model_name": "<YOUR_AI_PLATFORM_MODEL_NAME" 
+    }
+ }
+```
+
+8. Retry the app to see if it works (refresh the Streamlit app by pressing R or refreshing the page and then reupload an image and click "Predict")
+
+TODO: Image
   
 ### 3. Deploying the whole app to GCP
 
@@ -119,4 +185,11 @@ I'm glad you asked...
 
 * TODO: Google Cloud free materials etc/lots and lots and lots of blog posts
 
+* https://google.qwiklabs.com/
+* https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/
+* https://mark.douthwaite.io/deploying-streamlit-to-app-engine/
+
+## TODO: Extensions
+
+* CI/CD
 
