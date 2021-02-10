@@ -1,5 +1,8 @@
 # CS329s Machine Learning Model Deployment Tutorial
 
+TODO: warnings
+TODO: thank you's (people who have helped create this)
+
 > What is in here?
 
 Code and files to go along with [CS329s machine learning model deployment tutorial](https://stanford-cs329s.github.io/syllabus.html).
@@ -35,19 +38,39 @@ If you go through the steps below without fail, you should end up with a Streaml
 * navigate to local host where Streamlit app lives
   * Note: Streamlit app will break unless, you've got the right GCP setup...
  
-> How do I fix this error?
+> How do I fix this error? (Streamlit can't access your model) 
 
-* Train a model - use the model training notebook (TODO: upload this to GitHub) 
-* Host it on Google Storage - 
+* Train a model - use the [model training notebook](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb)
+* Host it on Google Storage
+ * Requires creating a bucket - https://cloud.google.com/storage/docs/creating-buckets
+ * Then copy your SavedModel to the bucket you created - https://cloud.google.com/storage/docs/uploading-objects#gsutil
 * Connect model in Google Storage to AI platform - https://cloud.google.com/ai-platform/prediction/docs/deploying-models 
+ * You can use the Google Cloud Console or use `gcloud` CLI - https://cloud.google.com/sdk/gcloud/reference/ai-platform/models/create 
+ * create a model
+ * create a version (link your model to version saved in GS)
+ 
 * Create a service account to access AI platform (GCP loves permissions, it's for your security)
  * Download the service account key (**Warning:** keep this private! otherwise people can access your GCP account, add these to your .gitignore (.gitignore tells git what files it should ignore when saving/uploading to GitHub))
+ * Create a service account which is allowed to access AI platform - https://cloud.google.com/iam/docs/creating-managing-service-accounts
+ * Give the service account permissions to use ML Engine Developer (TODO: add image)
+ * Get a key for that service account - https://cloud.google.com/iam/docs/creating-managing-service-account-keys
 * Update the variables in `app.py` and `utils.py` with your GCP information
  * You'll need:
-  * GCP key
+  * GCP key (JSON)
   * the name of your hosted model (e.g. `efficientnetb0_10_food_classes`)
   * the region of where your hosted model lives (e.g. `us-central1`)
-
+ * Test to see if it works...
+  
+ > Okay, I've fixed the permissions error, how do I deploy my model/app?
+ 
+ I'm glad you asked...
+ 
+ * run `make gcloud-deploy`... wait 5-10 mins and your app will be on App Engine (as long as you've activated the App Engine API)
+ 
+ > What happens when you run `make gcloud-deploy`?
+ 
+ * TODO: add the steps here of make/GCLOUD deploy
+ 
 > What do all the files in `food-vision` do?
 
 * TODO: list what each file does...
