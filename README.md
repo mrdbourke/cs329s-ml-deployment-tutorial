@@ -103,8 +103,8 @@ auth.authenticate_user()
 !gsutil cp -r <YOUR_MODEL_PATH> <YOUR_GOOGLE_STORAGE_BUCKET>
 ```
 
-4. [Connect model in bucket to AI Platform](https://cloud.google.com/ai-platform/prediction/docs/deploying-models) (this'll make our model accessible via an API call)
- * You can also [use `gcloud` to create a model in the AI Platform](https://cloud.google.com/sdk/gcloud/reference/ai-platform/models/create)
+4. [Connect model in bucket to AI Platform](https://cloud.google.com/ai-platform/prediction/docs/deploying-models) (this'll make our model accessible via an API call, if you're not sure what an API call is, imagine writing a function that could trigger our model from anywhere on the internet)
+ * Don't like clicking around Google Cloud's console? You can also [use `gcloud` to create a model in AI Platform](https://cloud.google.com/sdk/gcloud/reference/ai-platform/models/create) on the command line 
  
  TODO: image(s)
  
@@ -114,7 +114,7 @@ auth.authenticate_user()
 ![ml developer role permission](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/gcp-ml-engine-permissions.png)
 
 6. Once you've got an active service account, [create and download its key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) (this will come in the form of a .JSON file)
- * 🔑 **Note:** Service keys grant access to your GCP account, keep this file private (e.g add `*.json` to your `.gitignore`)
+ * 🔑 **Note:** Service keys grant access to your GCP account, keep this file private (e.g add `*.json` to your `.gitignore` so you don't accidently add it to GitHub)
 
 7. Update the following variables:
  * In `app.py`, change the existing GCP key path to your key path:
@@ -151,7 +151,7 @@ REGION = "<YOUR_GCP_REGION>"
   classes_and_models = {
     "model_1": {
         "classes": base_classes,
-        "model_name": "<YOUR_AI_PLATFORM_MODEL_NAME" 
+        "model_name": "<YOUR_AI_PLATFORM_MODEL_NAME>" 
     }
  }
 ```
@@ -166,9 +166,11 @@ TODO: Image
  
 I'm glad you asked...
  
- * run `make gcloud-deploy`... wait 5-10 mins and your app will be on App Engine (as long as you've activated the App Engine API)
+1. run `make gcloud-deploy`... wait 5-10 mins and your app will be on App Engine (as long as you've activated the App Engine API)
+
+...and you're done
  
- > What happens when you run `make gcloud-deploy`?
+ > But wait, what happens when you run `make gcloud-deploy`?
  
  * TODO: add the steps here of make/GCLOUD deploy
  
@@ -177,6 +179,11 @@ I'm glad you asked...
 > What do all the files in `food-vision` do?
 
 * TODO: list what each file does...
+
+## Where else your app will break
+
+The app we've deployed is far from perfect, here's where you'll find it also breaking: 
+* TODO
 
 ## Learn more
 
@@ -191,4 +198,4 @@ I'm glad you asked...
 ## TODO: Extensions
 
 * CI/CD
-
+* Codify everything!
