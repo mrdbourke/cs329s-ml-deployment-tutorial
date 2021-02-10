@@ -1,9 +1,8 @@
 # CS329s Machine Learning Model Deployment Tutorial
 
-Warning: following the steps of what's in here may cost you money (Google Cloud is a paid service), be sure to follow accordingly.
+**Warning:** Following the steps of what's in here may cost you money (Google Cloud is a paid service), be sure to follow accordingly.
 
-Thank you to: [Mark Douthwaite](https://mark.douthwaite.io/), Lj Miranda Huyen  https://mark.douthwaite.io/
-TODO: thank you's (people who have helped create this)
+**Thank you to:** [Mark Douthwaite's incredible ML + software engineering blog](https://mark.douthwaite.io/), [Lj Miranda Huyen's amazing post on software engineering tools for data scientists](https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/), [Chip Huyen](https://huyenchip.com/) and Ashik Shafi's gracious feedback on the raw materials of this tutorial.
 
 ## What is in here?
 
@@ -19,7 +18,7 @@ If you go through the steps below without fail, you should end up with a Streaml
 * [Google Cloud SDK installed](https://cloud.google.com/sdk/docs/install) (gcloud CLI utitly)
 * Trained [machine learning models](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), our service uses an image classification model on a number of different classes of food from [Food101 dataset](https://www.kaggle.com/dansbecker/food-101).
 
-**Warning:** Using Google Cloud services costs money. If you don't have credits (you get $300USD when you first sign up), you will be charged. Delete and shutdown your work when finished to avoid charges.
+**Warning (again):** Using Google Cloud services costs money. If you don't have credits (you get $300USD when you first sign up), you will be charged. Delete and shutdown your work when finished to avoid charges.
 
 ## Okay, I'm in, how can I use it?
 
