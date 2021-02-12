@@ -1,3 +1,5 @@
+Note (12 Feb 2021): Currently updating this README to fill-in TODO's, a video tutorial of this repo will be here sometime this weekend (13/14 Feb 2021).
+
 # CS329s Machine Learning Model Deployment Tutorial
 
 **Warning:** Following the steps of what's in here may cost you money (Google Cloud is a paid service), be sure to follow accordingly.
