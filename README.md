@@ -89,9 +89,11 @@ Let's see how we'll can get the above.
 
 1. To train a machine learning model and save it in the [`SavedModel`](https://www.tensorflow.org/guide/saved_model) format (this TensorFlow specific, do what you need for PyTorch), we can follow the steps in [`model_training.ipynb`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb).
 
-2. Once we've got a `SavedModel`, we'll upload it Google Storage but before we do that, we'll need to [create a Google Storage Bucket](https://cloud.google.com/storage/docs/creating-buckets).
+2. Once we've got a `SavedModel`, we'll upload it Google Storage but before we do that, we'll need to [create a Google Storage Bucket](https://cloud.google.com/storage/docs/creating-buckets) (a bucket is like a hard drive on the cloud).
 
-TODO: Image
+![creating a bucket on google cloud](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/gcp-creating-a-bucket.png)
+
+Call your bucket whatever you like (e.g. my_cool_bucket_name). You'll want to store your data in a region which is either closest to you or wherever you're allowed to store data (if this doesn't make sense, store it in the US).
 
 3. With a bucket created, we can [copy our model to the bucket](https://cloud.google.com/storage/docs/uploading-objects#gsutil).
 ```
@@ -109,9 +111,13 @@ auth.authenticate_user()
 
 4. [Connect model in bucket to AI Platform](https://cloud.google.com/ai-platform/prediction/docs/deploying-models) (this'll make our model accessible via an API call, if you're not sure what an API call is, imagine writing a function that could trigger our model from anywhere on the internet)
  * Don't like clicking around Google Cloud's console? You can also [use `gcloud` to create a model in AI Platform](https://cloud.google.com/sdk/gcloud/reference/ai-platform/models/create) on the command line 
- 
- TODO: image(s)
- 
+* Create a model on AI Platform (choose a region which is closest to you or where you'd like your model to be accessed from):
+![creating a model on AI Platform](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/gcp-creating-a-model-on-ai-platform.png)
+* Once you've got a model on AI Platform (above), you'll need to create a model version which matches up with what your model was trained with (e.g. choose TensorFlow if your model is trained with TensorFlow):
+![creating a model version on AI Platform](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/gcp-creating-a-model-version.png)
+* And then link your model version to your trained model in Google Storage:
+![linking a model version to Google Storage](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/gcp-connecting-a-model-version-to-google-storage.png)
+
 5. Create a [service account to access AI Platform](https://cloud.google.com/iam/docs/creating-managing-service-accounts) (GCP loves permissions, it's for the security of your app)
  * You'll want to make a service account with permissions to use the "ML Engine Developer" role
 
@@ -162,7 +168,7 @@ REGION = "<YOUR_GCP_REGION>"
 
 8. Retry the app to see if it works (refresh the Streamlit app by pressing R or refreshing the page and then reupload an image and click "Predict")
 
-TODO: Image
+![what you'll see when you click the predict button and your model is hosted correctly](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/streamlit-predict-button-clicked.png)
   
 ### 3. Deploying the whole app to GCP
 
@@ -209,7 +215,7 @@ http://<YOUR_PROJECT_NAME>.ue.r.appspot.com/
 
 Which should look exactly like our app running locally!
 
-TODO: image of app on App Engine
+![our streamlit app running on App Engine](https://raw.githubusercontent.com/mrdbourke/cs329s-ml-deployment-tutorial/main/images/streamlit-app-on-app-engine.png)
  
 ## Breaking down `food-vision`
 
