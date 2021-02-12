@@ -12,7 +12,9 @@ Code and files to go along with [CS329s machine learning model deployment tutori
 
 ## What will I end up with?
 
-If you go through the steps below without fail, you should end up with a Streamlit-powered web application for classifying images of food (deployed on Google Cloud if you want).
+If you go through the steps below without fail, you should end up with a Streamlit-powered web application (Food Vision 👁🍔) for classifying images of food (deployed on Google Cloud if you want).
+
+TODO: gif here for demo, plus gifs are cool
 
 ## What do I need?
 
@@ -172,32 +174,89 @@ I'm glad you asked...
 
 ...and you're done
  
- > But wait, what happens when you run `make gcloud-deploy`?
- 
- * TODO: add the steps here of make/GCLOUD deploy
+> But wait, what happens when you run `make gcloud-deploy`?
+
+When you run `make gcloud-deploy`, the `gcloud-deploy` commaned within the Makefile ([`food-vision/Makefile`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/food-vision/Makefile)) gets triggered. 
+
+`make gcloud-deploy` is actually an alias for running:
+
+```
+gcloud app deploy app.yaml
+```
+
+This is `gcloud`'s way of saying "Hey, Google Cloud, kick off the steps you need to do to get our locally running app (`food-vision/app.py`) running on App Engine."
+
+To do this, the `gcloud app deploy` command does a number of things:
+* Our app is put into a [Docker container](https://www.docker.com/resources/what-container) defined by [`[food-vision/Dockerfile]`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/food-vision/Dockerfile) (imagine a Docker container as a box which contains our locally running app and everything it needs to run, once it's in the box, the box can be run anywhere Docker is available and it should work and the Dockerfile defines how the container should be created).
+* Once the Docker container is created, it becomes a Docker image (confusing, I know but think of a Docker image as an immutable Docker container, e.g. it won't change when we move it somewhere).
+* The Docker image is then uploaded to [Google Container Registry (GCR)](https://cloud.google.com/container-registry), Google's place for hosting Docker images.
+* Once our Docker image is hosted on GCR, it gets deployed to an App Engine instance (think a computer just like ours but running online, where other people can access it).
+* The App Engine instance is defined by the instructions in [`food-vision/app.yaml`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/food-vision/app.yaml), if you check out this file you'll notice it's quite simple, it has two lines:
+```
+runtime: custom # we want to run our own custom Docker container
+env: flex # we want our App Engine to be flexible and install our various dependencies (in requirements.txt)
+```
+
+Seems like a lot right?
+
+And it is, but once you've had a little practice which each, you'll start to realise there's a specific reason behind each of them.
+
+If all the steps executed correctly, you should see your app running live on App Engine under a URL similar to:
+
+```
+http://<YOUR_PROJECT_NAME>.ue.r.appspot.com/
+```
+
+Which should look exactly like our app running locally!
+
+TODO: image of app on App Engine
  
 ## Breaking down `food-vision`
 
 > What do all the files in `food-vision` do?
 
-* TODO: list what each file does...
+There's a bunch of files in our [`food-vision` directory](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/tree/main/food-vision) and seeing them for the first time can be confusing. So here's a quick one-liner for each.
+
+* `.dockerignore` - files/folders to ignore when are Docker container is being created (similar to how `.gitignore` tells what files/folders to ignore when committing.
+* `Dockerfile` - instructions for how our Docker container (a box with all of what our app needs to run) should be created.
+* `Makefile` - a handy script for executing commands like `make gcloud-deploy` on the command which run larger commands (this saves us typing large commands all the time, see [What is a Makefile?](https://www.google.com/search?client=safari&rls=en&q=what+is+a+makefile&ie=UTF-8&oe=UTF-8) for more).
+* `SessionState.py`- a Python script to help our Streamlit app maintain state (not delete everything) when we a click a button, see the [Streamlit forums for more](https://discuss.streamlit.io/t/is-there-any-working-example-for-session-state-for-streamlit-version-0-63-1/4551/2).
+* `app.py` - our Food Vision 👁🍔 app built with [Streamlit](http://streamlit.io/).
+* `app.yaml` - the instructions for what type of instance App Engine should create when we deploy our app.
+* `requirements.txt`- all of the dependencies required to run `app.py`.
+* `utils.py` - helper functions used in `app.py` (this prevents our app from getting too large).
 
 ## Where else your app will break
 
-The app we've deployed is far from perfect, here's where you'll find it also breaking: 
-* TODO
+TODO (video linkl) During the tutorial, we saw the app we've deployed is far from perfect and we saw a couple of places where our app will break, but there's one more:
+
+* The default app (the on you'll get when you clone the repo) works with 3 models:
+ * Model 1: 10 food classes from Food101.
+ * Model 2: 11 food classes from Food101.
+ * Model 3: 11 food classes Food101 + 1 not_food class (random images from ImageNet).
+  * All of these models can be trained using [`model_training.ipynb`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), however, if you do have access to all 3, your app will break if you choose anything other than Model 1 in the sidebar (the app requires at least 1 model to run).
 
 ## Learn more
 
 > Where can I learn all of this?
 
-* TODO: Google Cloud free materials etc/lots and lots and lots of blog posts
+Just like there's an infinite way you can construct deep learning neural networks with different layers, what we've done here is only *one* way you can deploy machine learning models/applications with Google Cloud (other cloud services have similar offerings as well).
 
-* https://google.qwiklabs.com/
-* https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/
-* https://mark.douthwaite.io/deploying-streamlit-to-app-engine/
+If you'd like to learn more about Google Cloud, I'd recommend [Google's Qwiklabs](https://google.qwiklabs.com/), here you'll get hands-on experience using Google Cloud for different uses-cases (all for free).
 
-## TODO: Extensions
+If you'd like more about how software engineering crosses over with machine learning, I'd recommend the following blogs:
 
-* CI/CD
-* Codify everything!
+* LJ Miranda's [How to improve software engineering skills as a researcher](https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/) 
+* Mark Douthwaite's [software engineering and machine learning blog](https://mark.douthwaite.io/)
+
+## Extensions
+
+> How can I extend this app?
+
+* **CI/CD** - you'll here this a lot when you start building and shipping software. It stands for "continuous integration/continuous delivery". I think of it like this, say you make a change to your app and you'd like to push it to your users immediately, you could have a service such as [GitHub Actions](https://github.com/features/actions) watch for changes in your GitHub repo. If a change occurs on a certain branch, GitHub Actions performs steps very similar to what we've done here and redeploys your (updated) app automatically.
+ * Mark Douthwaite has a great blog post on [CI/CD with GitHub Actions](https://mark.douthwaite.io/continuous-training-and-delivery/).
+* **Codify everything!** - when deploying our app, we did a lot of clicking around the Google Cloud console, however you can do all of what we did using the [`gcloud` SDK](https://cloud.google.com/sdk), this means you could automate everything we've done and make the whole process far less manual!
+
+## Questions?
+
+Leave an issue or send me a message: daniel at mrdbourke dot com.
