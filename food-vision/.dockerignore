@@ -5,6 +5,7 @@
 *.key
 env
 images
+keynote-images
 
 # Python stuff
 *.pyc
