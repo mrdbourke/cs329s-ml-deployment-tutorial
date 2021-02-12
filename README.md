@@ -176,7 +176,7 @@ I'm glad you asked...
  
 > But wait, what happens when you run `make gcloud-deploy`?
 
-When you run `make gcloud-deploy`, the `gcloud-deploy` commaned within the Makefile ([`food-vision/Makefile`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/food-vision/Makefile)) gets triggered. 
+When you run `make gcloud-deploy`, the `gcloud-deploy` command within the Makefile ([`food-vision/Makefile`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/food-vision/Makefile)) gets triggered. 
 
 `make gcloud-deploy` is actually an alias for running:
 
@@ -253,9 +253,10 @@ If you'd like more about how software engineering crosses over with machine lear
 
 > How can I extend this app?
 
-* **CI/CD** - you'll here this a lot when you start building and shipping software. It stands for "continuous integration/continuous delivery". I think of it like this, say you make a change to your app and you'd like to push it to your users immediately, you could have a service such as [GitHub Actions](https://github.com/features/actions) watch for changes in your GitHub repo. If a change occurs on a certain branch, GitHub Actions performs steps very similar to what we've done here and redeploys your (updated) app automatically.
+**CI/CD** - you'll hear this a lot when you start building and shipping software. It stands for "continuous integration/continuous delivery". I think of it like this, say you make a change to your app and you'd like to push it to your users immediately, you could have a service such as [GitHub Actions](https://github.com/features/actions) watch for changes in your GitHub repo. If a change occurs on a certain branch, GitHub Actions performs steps very similar to what we've done here and redeploys your (updated) app automatically.
  * Mark Douthwaite has a great blog post on [CI/CD with GitHub Actions](https://mark.douthwaite.io/continuous-training-and-delivery/).
-* **Codify everything!** - when deploying our app, we did a lot of clicking around the Google Cloud console, however you can do all of what we did using the [`gcloud` SDK](https://cloud.google.com/sdk), this means you could automate everything we've done and make the whole process far less manual!
+
+**Codify everything!** - when deploying our app, we did a lot of clicking around the Google Cloud console, however you can do all of what we did using the [`gcloud` SDK](https://cloud.google.com/sdk), this means you could automate everything we've done and make the whole process far less manual!
 
 ## Questions?
 
