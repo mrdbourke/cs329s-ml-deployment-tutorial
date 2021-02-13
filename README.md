@@ -256,6 +256,8 @@ If you'd like more about how software engineering crosses over with machine lear
 * LJ Miranda's [How to improve software engineering skills as a researcher](https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/) 
 * Mark Douthwaite's [software engineering and machine learning blog](https://mark.douthwaite.io/)
 
+For more on the concept of the "data flywheel" (discussed during the tutorial), check out Josh Tobin's talk [A Missing Link in the Machine Learning Infrastrcuture Stack](https://youtu.be/o4q_ljRkXqw).
+
 ## Extensions
 
 > How can I extend this app?
