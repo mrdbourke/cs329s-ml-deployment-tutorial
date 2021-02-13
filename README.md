@@ -12,9 +12,10 @@ Code and files to go along with [CS329s machine learning model deployment tutori
 
 ## What will I end up with?
 
-If you go through the steps below without fail, you should end up with a Streamlit-powered web application (Food Vision 👁🍔) for classifying images of food (deployed on Google Cloud if you want).
+If you go through the steps below without fail, you should end up with a Streamlit-powered web application (Food Vision 🍔👁) for classifying images of food (deployed on Google Cloud if you want).
 
-TODO: gif here for demo, plus gifs are cool
+Food Vision 🍔👁 running locally making a prediction on an image of ice cream (using a machine learning model deployed on Google Cloud):
+![food vision demo](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/raw/main/images/food-vision-demo-cropped.gif)
 
 ## What do I need?
 
