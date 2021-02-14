@@ -238,7 +238,7 @@ There's a bunch of files in our [`food-vision` directory](https://github.com/mrd
 
 ## Where else your app will break
 
-During the tutorial (TODO: link... see timestamp 1:32:35), we saw the app we've deployed is far from perfect and we saw a couple of places where our app will break, but there's one more:
+During the tutorial (see [timestamp 1:32:31](https://youtu.be/fw6NMQrYc6w?t=5551)), we saw the app we've deployed is far from perfect and we saw a couple of places where our app will break, but there's one more:
 
 The default app (the on you'll get when you clone the repo) works with 3 models:
  * Model 1: 10 food classes from [Food101](https://www.kaggle.com/dansbecker/food-101).
@@ -273,4 +273,4 @@ For more on the concept of the "data flywheel" (discussed during the tutorial), 
 
 ## Questions?
 
-Leave an issue or send me a message: daniel at mrdbourke dot com.
+Start a [discussion](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/discussions) or send me a message: daniel at mrdbourke dot com.
