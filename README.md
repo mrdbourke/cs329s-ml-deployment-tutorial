@@ -12,21 +12,21 @@ Code and files to go along with [CS329s machine learning model deployment tutori
 * See the [slides](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/CS329s-deploying-ml-models-tutorial.pdf)
 * Get the [model training code](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb)
 
+## What do I need to get started?
+
+* A [Google Cloud account](https://cloud.google.com/gcp) and a [Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
+* [Google Cloud SDK installed](https://cloud.google.com/sdk/docs/install) (gcloud CLI utitly)
+* Trained [machine learning model(s)](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), our app uses an image classification model trained on a number of different classes of food from [Food101 dataset](https://www.kaggle.com/dansbecker/food-101)
+* [Docker installed](https://docs.docker.com/get-docker/)
+
+**Warning (again):** Using Google Cloud services costs money. If you don't have credits (you get $300USD when you first sign up), you will be charged. Delete and shutdown your work when finished to avoid charges.
+
 ## What will I end up with?
 
 If you go through the steps below without fail, you should end up with a [Streamlit](http://streamlit.io/)-powered web application (Food Vision 🍔👁) for classifying images of food (deployed on Google Cloud if you want).
 
 Our app running locally making a prediction on an image of ice cream (using a machine learning model deployed on Google Cloud):
 ![food vision demo](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/raw/main/images/food-vision-demo-cropped.gif)
-
-## What do I need to get started?
-
-* A [Google Cloud account](https://cloud.google.com/gcp) and a [Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
-* [Google Cloud SDK installed](https://cloud.google.com/sdk/docs/install) (gcloud CLI utitly)
-* Trained [machine learning model(s)](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), our service uses an image classification model on a number of different classes of food from [Food101 dataset](https://www.kaggle.com/dansbecker/food-101)
-* [Docker installed](https://docs.docker.com/get-docker/)
-
-**Warning (again):** Using Google Cloud services costs money. If you don't have credits (you get $300USD when you first sign up), you will be charged. Delete and shutdown your work when finished to avoid charges.
 
 ## Okay, I'm in, how can I use it?
 
