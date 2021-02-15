@@ -1,8 +1,6 @@
-Note (12 Feb 2021): Currently updating this README to fill-in TODO's, a video tutorial of this repo will be here sometime this weekend (13/14 Feb 2021).
-
 # CS329s Machine Learning Model Deployment Tutorial
 
-**Warning:** Following the steps of what's in here may cost you money (Google Cloud is a paid service), be sure to follow accordingly.
+**Warning:** Following the steps of what's in here may cost you money (Google Cloud is a paid service), be sure to shut down any Google Cloud service you no longer need to use to avoid charges.
 
 **Thank you to:** [Mark Douthwaite's incredible ML + software engineering blog](https://mark.douthwaite.io/), [Lj Miranda Huyen's amazing post on software engineering tools for data scientists](https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/), [Chip Huyen](https://huyenchip.com/) and Ashik Shafi's gracious feedback on the raw materials of this tutorial.
 
@@ -10,20 +8,25 @@ Note (12 Feb 2021): Currently updating this README to fill-in TODO's, a video tu
 
 Code and files to go along with [CS329s machine learning model deployment tutorial](https://stanford-cs329s.github.io/syllabus.html).
 
-## What will I end up with?
+* Watch the [video tutorial on YouTube](https://youtu.be/fw6NMQrYc6w)
+* See the [slides](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/CS329s-deploying-ml-models-tutorial.pdf)
+* Get the [model training code](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb)
 
-If you go through the steps below without fail, you should end up with a Streamlit-powered web application (Food Vision 🍔👁) for classifying images of food (deployed on Google Cloud if you want).
-
-Our app running locally making a prediction on an image of ice cream (using a machine learning model deployed on Google Cloud):
-![food vision demo](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/raw/main/images/food-vision-demo-cropped.gif)
-
-## What do I need?
+## What do I need to get started?
 
 * A [Google Cloud account](https://cloud.google.com/gcp) and a [Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
 * [Google Cloud SDK installed](https://cloud.google.com/sdk/docs/install) (gcloud CLI utitly)
-* Trained [machine learning models](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), our service uses an image classification model on a number of different classes of food from [Food101 dataset](https://www.kaggle.com/dansbecker/food-101).
+* Trained [machine learning model(s)](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), our app uses an image classification model trained on a number of different classes of food from [Food101 dataset](https://www.kaggle.com/dansbecker/food-101)
+* [Docker installed](https://docs.docker.com/get-docker/)
 
 **Warning (again):** Using Google Cloud services costs money. If you don't have credits (you get $300USD when you first sign up), you will be charged. Delete and shutdown your work when finished to avoid charges.
+
+## What will I end up with?
+
+If you go through the steps below without fail, you should end up with a [Streamlit](http://streamlit.io/)-powered web application (Food Vision 🍔👁) for classifying images of food (deployed on Google Cloud if you want).
+
+Our app running locally making a prediction on an image of ice cream (using a machine learning model deployed on Google Cloud):
+![food vision demo](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/raw/main/images/food-vision-demo-cropped.gif)
 
 ## Okay, I'm in, how can I use it?
 
@@ -235,13 +238,14 @@ There's a bunch of files in our [`food-vision` directory](https://github.com/mrd
 
 ## Where else your app will break
 
-TODO (video linkl) During the tutorial, we saw the app we've deployed is far from perfect and we saw a couple of places where our app will break, but there's one more:
+During the tutorial (see [timestamp 1:32:31](https://youtu.be/fw6NMQrYc6w?t=5551)), we saw the app we've deployed is far from perfect and we saw a couple of places where our app will break, but there's one more:
 
-* The default app (the on you'll get when you clone the repo) works with 3 models:
- * Model 1: 10 food classes from Food101.
+The default app (the on you'll get when you clone the repo) works with 3 models:
+ * Model 1: 10 food classes from [Food101](https://www.kaggle.com/dansbecker/food-101).
  * Model 2: 11 food classes from Food101.
  * Model 3: 11 food classes Food101 + 1 not_food class (random images from ImageNet).
-  * All of these models can be trained using [`model_training.ipynb`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), however, if you do have access to all 3, your app will break if you choose anything other than Model 1 in the sidebar (the app requires at least 1 model to run).
+ 
+All of these models can be trained using [`model_training.ipynb`](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/blob/main/model_training.ipynb), however, if you do have access to all 3, your app will break if you choose anything other than Model 1 in the sidebar (the app requires at least 1 model to run).
 
 ## Learn more
 
@@ -256,6 +260,8 @@ If you'd like more about how software engineering crosses over with machine lear
 * LJ Miranda's [How to improve software engineering skills as a researcher](https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/) 
 * Mark Douthwaite's [software engineering and machine learning blog](https://mark.douthwaite.io/)
 
+For more on the concept of the "data flywheel" (discussed during the tutorial), check out Josh Tobin's talk [A Missing Link in the Machine Learning Infrastrcuture Stack](https://youtu.be/o4q_ljRkXqw).
+
 ## Extensions
 
 > How can I extend this app?
@@ -267,4 +273,4 @@ If you'd like more about how software engineering crosses over with machine lear
 
 ## Questions?
 
-Leave an issue or send me a message: daniel at mrdbourke dot com.
+Start a [discussion](https://github.com/mrdbourke/cs329s-ml-deployment-tutorial/discussions) or send me a message: daniel at mrdbourke dot com.
