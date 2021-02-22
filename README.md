@@ -2,7 +2,7 @@
 
 **Warning:** Following the steps of what's in here may cost you money (Google Cloud is a paid service), be sure to shut down any Google Cloud service you no longer need to use to avoid charges.
 
-**Thank you to:** [Mark Douthwaite's incredible ML + software engineering blog](https://mark.douthwaite.io/), [Lj Miranda Huyen's amazing post on software engineering tools for data scientists](https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/), [Chip Huyen](https://huyenchip.com/) and Ashik Shafi's gracious feedback on the raw materials of this tutorial.
+**Thank you to:** [Mark Douthwaite's incredible ML + software engineering blog](https://mark.douthwaite.io/), [Lj Miranda's amazing post on software engineering tools for data scientists](https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/), [Chip Huyen](https://huyenchip.com/) and Ashik Shafi's gracious feedback on the raw materials of this tutorial.
 
 ## What is in here?
 
