@@ -1,4 +1,4 @@
-### Script for CS329s ML Deployment Lec 
+# Script for CS329s ML Deployment Lec
 import os
 import json
 import requests
@@ -8,15 +8,19 @@ import tensorflow as tf
 from utils import load_and_prep_image, classes_and_models, update_logger, predict_json
 
 # Setup environment credentials (you'll need to change these)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "daniels-dl-playground-4edbcb2e6e37.json" # change for your GCP key
-PROJECT = "daniels-dl-playground" # change for your GCP project
-REGION = "us-central1" # change for your GCP region (where your model is hosted)
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "daniels-dl-playground-4edbcb2e6e37.json" # change for your GCP key
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "deploy-image-classification-5a670d3aa7cf.json"
+PROJECT = "deploy-image-classification"  # change for your GCP project
+# change for your GCP region (where your model is hosted)
+REGION = "asia-southeast1"
 
 ### Streamlit code (works as a straigtht-forward script) ###
 st.title("Welcome to Food Vision 🍔📸")
 st.header("Identify what's in your food photos!")
 
-@st.cache # cache the function so predictions aren't always redone (Streamlit refreshes every click)
+
+# cache the function so predictions aren't always redone (Streamlit refreshes every click)
+@st.cache
 def make_prediction(image, model, class_names):
     """
     Takes an image and uses model (a trained TensorFlow model) to make a
@@ -39,12 +43,13 @@ def make_prediction(image, model, class_names):
     pred_conf = tf.reduce_max(preds[0])
     return image, pred_class, pred_conf
 
+
 # Pick the model version
 choose_model = st.sidebar.selectbox(
     "Pick model you'd like to use",
-    ("Model 1 (10 food classes)", # original 10 classes
-     "Model 2 (11 food classes)", # original 10 classes + donuts
-     "Model 3 (11 food classes + non-food class)") # 11 classes (same as above) + not_food class
+    ("Model 1 (10 food classes)",  # original 10 classes
+     "Model 2 (11 food classes)",  # original 10 classes + donuts
+     "Model 3 (11 food classes + non-food class)")  # 11 classes (same as above) + not_food class
 )
 
 # Model choice logic
@@ -60,14 +65,15 @@ else:
 
 # Display info about model and classes
 if st.checkbox("Show classes"):
-    st.write(f"You chose {MODEL}, these are the classes of food it can identify:\n", CLASSES)
+    st.write(
+        f"You chose {MODEL}, these are the classes of food it can identify:\n", CLASSES)
 
 # File uploader allows user to add their own image
 uploaded_file = st.file_uploader(label="Upload an image of food",
                                  type=["png", "jpeg", "jpg"])
 
 # Setup session state to remember state of app so refresh isn't always needed
-# See: https://discuss.streamlit.io/t/the-button-inside-a-button-seems-to-reset-the-whole-app-why/1051/11 
+# See: https://discuss.streamlit.io/t/the-button-inside-a-button-seems-to-reset-the-whole-app-why/1051/11
 session_state = SessionState.get(pred_button=False)
 
 # Create logic for app flow
@@ -81,11 +87,12 @@ else:
 
 # Did the user press the predict button?
 if pred_button:
-    session_state.pred_button = True 
+    session_state.pred_button = True
 
 # And if they did...
 if session_state.pred_button:
-    session_state.image, session_state.pred_class, session_state.pred_conf = make_prediction(session_state.uploaded_image, model=MODEL, class_names=CLASSES)
+    session_state.image, session_state.pred_class, session_state.pred_conf = make_prediction(
+        session_state.uploaded_image, model=MODEL, class_names=CLASSES)
     st.write(f"Prediction: {session_state.pred_class}, \
                Confidence: {session_state.pred_conf:.3f}")
 
@@ -104,9 +111,11 @@ if session_state.pred_button:
                             pred_conf=session_state.pred_conf,
                             correct=True))
     elif session_state.feedback == "No":
-        session_state.correct_class = st.text_input("What should the correct label be?")
+        session_state.correct_class = st.text_input(
+            "What should the correct label be?")
         if session_state.correct_class:
-            st.write("Thank you for that, we'll use your help to make our model better!")
+            st.write(
+                "Thank you for that, we'll use your help to make our model better!")
             # Log prediction information to terminal (this could be stored in Big Query or something...)
             print(update_logger(image=session_state.image,
                                 model_used=MODEL,
